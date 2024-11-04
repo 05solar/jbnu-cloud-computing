@@ -1,8 +1,9 @@
-package com.cloudbox.backend.auth.service;
+package com.cloudbox.backend.member.service;
 
-import com.cloudbox.backend.auth.domain.Member;
-import com.cloudbox.backend.auth.dto.member.request.MemberCreateRequest;
-import com.cloudbox.backend.auth.repository.MemberRepository;
+import com.cloudbox.backend.common.constants.Role;
+import com.cloudbox.backend.member.domain.Member;
+import com.cloudbox.backend.member.dto.request.MemberCreateRequest;
+import com.cloudbox.backend.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,7 +21,8 @@ public class MemberServiceImpl implements MemberService {
     public Long signUp(MemberCreateRequest memberCreateRequest) {
         Member member = Member.createMember(memberCreateRequest.getUsername(),
                 passwordEncoder.encode(memberCreateRequest.getPassword()),
-                memberCreateRequest.getEmail());
+                memberCreateRequest.getEmail(),
+                Role.USER);
 
         Member savedId = memberRepository.save(member);
 
